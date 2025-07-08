@@ -1,13 +1,15 @@
-// Core modules
-export { RepoIndexer } from './core/repo-indexer';
-export { ReflogParser } from './core/reflog-parser';
-export { ReportGenerator } from './core/report-generator';
+#!/usr/bin/env node
 
-// Commands
-export { GitTimelogCommand } from './commands/git-timelog-command';
+import { Command } from "commander";
+import pkg from "../package.json";
+import { defaultCommand } from "./commands/default";
 
-// Types
-export * from './types';
+const program = new Command();
 
-// Version
-export const VERSION = '1.0.0';
+program.name(pkg.name).description(pkg.description).version(pkg.version);
+
+program.action(async () => {
+    await defaultCommand();
+});
+
+program.parse();

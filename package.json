@@ -1,64 +1,30 @@
 {
-  "name": "git-timelog",
-  "version": "1.0.0",
-  "description": "A CLI tool to analyze git repositories and generate timelog reports from reflog data, especially for tracking Jira ticket work",
-  "main": "dist/index.js",
-  "bin": {
-    "git-timelog": "dist/cli.js"
-  },
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "start": "node dist/cli.js",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "format": "prettier --write src/**/*.ts",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm run lint"
-  },
-  "keywords": [
-    "git",
-    "timelog",
-    "reflog",
-    "jira",
-    "cli",
-    "productivity",
-    "developer-tools"
-  ],
-  "author": "Noex98",
-  "license": "MIT",
-  "files": [
-    "dist/",
-    "README.md",
-    "package.json"
-  ],
-  "engines": {
-    "node": ">=16.0.0"
-  },
-  "dependencies": {
-    "chalk": "^4.1.2",
-    "cli-table3": "^0.6.3",
-    "commander": "^11.1.0",
-    "date-fns": "^2.30.0",
-    "glob": "^10.3.10",
-    "simple-git": "^3.22.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.0",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.3",
-    "prettier": "^3.2.4",
-    "typescript": "^5.3.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Noex98/git-timelog.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Noex98/git-timelog/issues"
-  },
-  "homepage": "https://github.com/Noex98/git-timelog#readme"
+    "name": "git-timelog",
+    "license": "ISC",
+    "version": "0.0.1",
+    "description": "A tool to help figuring out what you spend time on based on data from git",
+    "author": "Noex98",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "bin": {
+        "git-timelog": "dist/index.js"
+    },
+    "scripts": {
+        "build": "tsup",
+        "lint": "tsc",
+        "dev": "tsup --watch",
+        "start": "node dist/index.js"
+    },
+    "devDependencies": {
+        "@changesets/cli": "^2.29.5",
+        "@types/node": "^24.0.10",
+        "tsup": "^8.5.0",
+        "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "cli-table3": "^0.6.5",
+        "commander": "^14.0.0",
+        "simple-git": "^3.28.0"
+    }
 }
