@@ -1,4 +1,5 @@
 export class ReflogHandler {
+    // https://git-scm.com/docs/pretty-formats
     private reflogValues = ["%gd", "%gs"] as const;
     private separator = "|" as const;
 
@@ -30,12 +31,12 @@ export class ReflogHandler {
     }
 
     /**
-     * Extracts the Jira ID from the reflog subject.
+     * Return first found JIRA ID from a string
      */
     getJiraId(reflogSubject?: string) {
-        if (!reflogSubject) return undefined;
+        if (!reflogSubject) return null;
 
         const jiraIdRegex = /\b[A-Z][A-Z0-9]+-\d+\b/g;
-        return reflogSubject.match(jiraIdRegex)?.[0];
+        return reflogSubject.match(jiraIdRegex)?.[0] ?? null;
     }
 }
