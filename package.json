@@ -1,7 +1,7 @@
 {
     "name": "@noex98/git-timelog",
     "license": "ISC",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A tool to help figuring out what you spend time on based on data from git",
     "author": "Noex98",
     "url": "https://github.com/Noex98/git-timelog",
