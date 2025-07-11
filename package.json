@@ -1,7 +1,7 @@
 {
     "name": "@noex98/git-timelog",
     "license": "ISC",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "A tool to help figuring out what you spend time on based on data from git",
     "author": "Noex98",
     "url": "https://github.com/Noex98/git-timelog",
@@ -18,13 +18,14 @@
         "start": "node dist/index.js"
     },
     "devDependencies": {
+        "@types/ejs": "^3.1.5",
         "@types/node": "^24.0.10",
         "tsup": "^8.5.0",
         "typescript": "^5.8.3"
     },
     "dependencies": {
-        "cli-table3": "^0.6.5",
         "commander": "^14.0.0",
+        "ejs": "^3.1.10",
         "simple-git": "^3.28.0"
     }
 }

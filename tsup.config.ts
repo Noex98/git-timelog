@@ -5,4 +5,6 @@ export default defineConfig({
     format: ["cjs"],
     clean: true,
     outDir: "dist",
+    publicDir: "public",
+    shims: true,
 });

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Git Timelog Report</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <h1>Git Timelog Report</h1>
+
+        <div class="summary">Total entries: <%= data.length %></div>
+
+        <% if (data.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                    <th>Task ID</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach((entry, index) => { %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td class="date"><%= entry.date || 'N/A' %></td>
+                    <td class="time"><%= entry.time || 'N/A' %></td>
+                    <td><%= entry.action || 'N/A' %></td>
+                    <td class="task-id"><%= entry.taskId || '' %></td>
+                    <td class="description">
+                        <%= entry.description || 'N/A' %>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <% } else { %>
+        <div class="no-data">No reflog entries found.</div>
+        <% } %>
+    </body>
+</html>
