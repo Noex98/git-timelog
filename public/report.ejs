@@ -5,29 +5,79 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Git Timelog Report</title>
         <link rel="stylesheet" href="styles.css" />
+        <script>
+            // Theme handling
+            document.addEventListener("DOMContentLoaded", () => {
+                const THEME_KEY = "git-timelog-theme";
+                const themeToggle = document.getElementById("theme-toggle");
+
+                // Set initial theme from localStorage or system preference
+                const savedTheme = localStorage.getItem(THEME_KEY);
+                const prefersDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches;
+                const isDarkTheme = savedTheme
+                    ? savedTheme === "dark"
+                    : prefersDark;
+
+                // Apply theme and set toggle state
+                if (isDarkTheme) {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                    themeToggle.checked = true;
+                }
+
+                // Handle theme toggle
+                themeToggle.addEventListener("change", () => {
+                    if (themeToggle.checked) {
+                        document.documentElement.setAttribute(
+                            "data-theme",
+                            "dark"
+                        );
+                        localStorage.setItem(THEME_KEY, "dark");
+                    } else {
+                        document.documentElement.removeAttribute("data-theme");
+                        localStorage.setItem(THEME_KEY, "light");
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
+        <div class="theme-toggle-container">
+            <span class="theme-toggle-label">Dark Mode</span>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-toggle" />
+                <span class="theme-toggle-slider"></span>
+            </label>
+        </div>
+
         <h1>Git Timelog Report</h1>
 
         <div class="summary">Total entries: <%= data.length %></div>
 
-        <% if (data.length > 0) { %>
+        <% if (data.length > 0) { %> <% let prevDate = null;
+        data.forEach((entry, index) => { const currentDate = entry.date ||
+        'N/A'; const isNewDate = prevDate !== currentDate; const
+        isLastEntryForDate = index === data.length - 1 || data[index + 1].date
+        !== currentDate; %> <% if (isNewDate) { %> <% if (prevDate) { %>
+        <div class="date-spacer"></div>
+        <% } %>
+        <div class="date-header">
+            <h2><%= currentDate %></h2>
+        </div>
         <table>
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>Time</th>
-                    <th>Date</th>
                     <th>Action</th>
                     <th>Task ID</th>
                     <th>Description</th>
                 </tr>
             </thead>
             <tbody>
-                <% data.forEach((entry, index) => { %>
+                <% } %>
+
                 <tr>
-                    <td><%= index + 1 %></td>
-                    <td class="date"><%= entry.date || 'N/A' %></td>
                     <td class="time"><%= entry.time || 'N/A' %></td>
                     <td><%= entry.action || 'N/A' %></td>
                     <td class="task-id"><%= entry.taskId || '' %></td>
@@ -35,11 +85,14 @@
                         <%= entry.description || 'N/A' %>
                     </td>
                 </tr>
-                <% }); %>
+
+                <% if (isLastEntryForDate) { %>
             </tbody>
         </table>
-        <% } else { %>
-        <div class="no-data">No reflog entries found.</div>
+        <% } %> <% prevDate = currentDate; %> <% }); %> <% } else { %>
+        <div class="no-data">
+            <p>No reflog entries found.</p>
+        </div>
         <% } %>
     </body>
 </html>

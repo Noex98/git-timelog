@@ -5,7 +5,7 @@ import path from "path";
 import open from "open";
 import fs from "fs/promises";
 
-export async function defaultCommand() {
+export async function defaultCommand(outputFormat: "web" | "json") {
     const git = simpleGit(process.cwd());
 
     const isRepo = await git.checkIsRepo();
@@ -27,12 +27,20 @@ export async function defaultCommand() {
         .split("\n")
         .map((line) => reflogHandler.parseReflogLine(line));
 
-    const report = await ejs.renderFile(path.join(__dirname, "report.ejs"), {
-        data,
-    });
+    if (outputFormat === "web") {
+        const report = await ejs.renderFile(
+            path.join(__dirname, "report.ejs"),
+            {
+                data,
+            }
+        );
+        const reportPath = path.join(__dirname, "report.html");
+        await fs.writeFile(reportPath, report);
+        open(reportPath);
+    }
 
-    const reportPath = path.join(__dirname, "report.html");
-
-    await fs.writeFile(reportPath, report);
-    open(reportPath);
+    if (outputFormat === "json") {
+        const x = JSON.stringify(data, null, 2);
+        console.log(x);
+    }
 }
