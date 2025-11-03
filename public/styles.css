@@ -61,6 +61,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 0 0 20px 0;
+    table-layout: fixed;
 }
 
 th {
@@ -70,6 +71,22 @@ th {
     text-align: left;
     font-weight: bold;
     font-size: 14px;
+}
+
+th:nth-child(1), td:nth-child(1) {
+    width: 80px; /* Time column */
+}
+
+th:nth-child(2), td:nth-child(2) {
+    width: 100px; /* Action column */
+}
+
+th:nth-child(3), td:nth-child(3) {
+    width: 120px; /* Task ID column */
+}
+
+th:nth-child(4), td:nth-child(4) {
+    width: auto; /* Description column - takes remaining space */
 }
 
 td {
@@ -101,8 +118,9 @@ tr:nth-child(even) {
 }
 
 .description {
-    max-width: 300px;
     word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .date-spacer {

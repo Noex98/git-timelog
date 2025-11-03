@@ -16,6 +16,7 @@ export class ReflogHandler {
 
         return {
             date: date?.toLocaleDateString("en-GB", {
+                weekday: "long",
                 day: "numeric",
                 month: "long",
             }),
