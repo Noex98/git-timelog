@@ -73,20 +73,27 @@ th {
     font-size: 14px;
 }
 
-th:nth-child(1), td:nth-child(1) {
-    width: 80px; /* Time column */
+.col-time {
+    width: 80px;
 }
 
-th:nth-child(2), td:nth-child(2) {
-    width: 100px; /* Action column */
+.col-repo {
+    width: 120px;
+    font-family: monospace;
+    font-weight: bold;
+    color: var(--task-id-color);
 }
 
-th:nth-child(3), td:nth-child(3) {
-    width: 120px; /* Task ID column */
+.col-action {
+    width: 100px;
 }
 
-th:nth-child(4), td:nth-child(4) {
-    width: auto; /* Description column - takes remaining space */
+.col-task-id {
+    width: 120px;
+}
+
+.col-description {
+    width: auto;
 }
 
 td {
@@ -145,16 +152,22 @@ tr:nth-child(even) {
     font-style: italic;
 }
 
-/* Theme toggle styles */
-.theme-toggle-container {
+/* Toggle styles */
+.toggles-container {
     position: absolute;
     top: 20px;
     right: 20px;
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
-.theme-toggle-label {
+.toggle-group {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-label {
     margin-right: 10px;
     font-size: 14px;
 }
@@ -202,4 +215,8 @@ input:checked + .theme-toggle-slider {
 
 input:checked + .theme-toggle-slider:before {
     transform: translateX(30px);
+}
+
+.repo-hidden .col-repo {
+    display: none;
 }

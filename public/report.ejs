@@ -6,12 +6,11 @@
         <title>Git Timelog Report</title>
         <link rel="stylesheet" href="styles.css" />
         <script>
-            // Theme handling
             document.addEventListener("DOMContentLoaded", () => {
+                // Theme toggle
                 const THEME_KEY = "git-timelog-theme";
                 const themeToggle = document.getElementById("theme-toggle");
 
-                // Set initial theme from localStorage or system preference
                 const savedTheme = localStorage.getItem(THEME_KEY);
                 const prefersDark = window.matchMedia(
                     "(prefers-color-scheme: dark)"
@@ -20,13 +19,11 @@
                     ? savedTheme === "dark"
                     : prefersDark;
 
-                // Apply theme and set toggle state
                 if (isDarkTheme) {
                     document.documentElement.setAttribute("data-theme", "dark");
                     themeToggle.checked = true;
                 }
 
-                // Handle theme toggle
                 themeToggle.addEventListener("change", () => {
                     if (themeToggle.checked) {
                         document.documentElement.setAttribute(
@@ -39,16 +36,50 @@
                         localStorage.setItem(THEME_KEY, "light");
                     }
                 });
+
+                // Repo column toggle
+                const REPO_KEY = "git-timelog-repo-column";
+                const repoToggle = document.getElementById("repo-toggle");
+                const isMultiRepo = <%= isMultiRepo %>;
+
+                const savedRepo = localStorage.getItem(REPO_KEY);
+                const showRepo = savedRepo !== null
+                    ? savedRepo === "visible"
+                    : isMultiRepo;
+
+                if (!showRepo) {
+                    document.body.classList.add("repo-hidden");
+                }
+                repoToggle.checked = showRepo;
+
+                repoToggle.addEventListener("change", () => {
+                    if (repoToggle.checked) {
+                        document.body.classList.remove("repo-hidden");
+                        localStorage.setItem(REPO_KEY, "visible");
+                    } else {
+                        document.body.classList.add("repo-hidden");
+                        localStorage.setItem(REPO_KEY, "hidden");
+                    }
+                });
             });
         </script>
     </head>
     <body>
-        <div class="theme-toggle-container">
-            <span class="theme-toggle-label">Dark Mode</span>
-            <label class="theme-toggle">
-                <input type="checkbox" id="theme-toggle" />
-                <span class="theme-toggle-slider"></span>
-            </label>
+        <div class="toggles-container">
+            <div class="toggle-group">
+                <span class="toggle-label">Show Repos</span>
+                <label class="theme-toggle">
+                    <input type="checkbox" id="repo-toggle" />
+                    <span class="theme-toggle-slider"></span>
+                </label>
+            </div>
+            <div class="toggle-group">
+                <span class="toggle-label">Dark Mode</span>
+                <label class="theme-toggle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <span class="theme-toggle-slider"></span>
+                </label>
+            </div>
         </div>
 
         <h1>Git Timelog Report</h1>
@@ -68,20 +99,22 @@
         <table>
             <thead>
                 <tr>
-                    <th>Time</th>
-                    <th>Action</th>
-                    <th>Task ID</th>
-                    <th>Description</th>
+                    <th class="col-time">Time</th>
+                    <th class="col-repo">Repo</th>
+                    <th class="col-action">Action</th>
+                    <th class="col-task-id">Task ID</th>
+                    <th class="col-description">Description</th>
                 </tr>
             </thead>
             <tbody>
                 <% } %>
 
                 <tr>
-                    <td class="time"><%= entry.time || 'N/A' %></td>
-                    <td><%= entry.action || 'N/A' %></td>
-                    <td class="task-id"><%= entry.taskId || '' %></td>
-                    <td class="description">
+                    <td class="col-time time"><%= entry.time || 'N/A' %></td>
+                    <td class="col-repo"><%= entry.repo || '' %></td>
+                    <td class="col-action"><%= entry.action || 'N/A' %></td>
+                    <td class="col-task-id task-id"><%= entry.taskId || '' %></td>
+                    <td class="col-description description">
                         <%= entry.description || 'N/A' %>
                     </td>
                 </tr>
