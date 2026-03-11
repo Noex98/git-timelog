@@ -7,7 +7,7 @@ export class ReflogHandler {
         return this.reflogValues.join(this.separator);
     }
 
-    parseReflogLine(reflog: string) {
+    parseReflogLine(reflog: string, repo: string = "") {
         const [gd, gs] = reflog.split(this.separator);
         const dateMatch = gd?.match(/HEAD@\{(.+?)\}/);
         const date = dateMatch?.[1] ? new Date(dateMatch[1]) : undefined;
@@ -24,6 +24,8 @@ export class ReflogHandler {
                 hour: "2-digit",
                 minute: "2-digit",
             }),
+            sortKey: date?.getTime() ?? 0,
+            repo,
             taskId: this.getJiraId(gs) ?? "",
             action:
                 parsedReflogSubject.length > 1 ? parsedReflogSubject[0] : null,
