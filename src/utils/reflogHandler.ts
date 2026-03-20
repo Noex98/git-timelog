@@ -15,6 +15,7 @@ export class ReflogHandler {
         const parsedReflogSubject = gs?.split(": ", 2) ?? [];
 
         return {
+            timestamp: date,
             date: date?.toLocaleDateString("en-GB", {
                 weekday: "long",
                 day: "numeric",
